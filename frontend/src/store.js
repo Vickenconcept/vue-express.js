@@ -1,6 +1,7 @@
 // src/store.js
 import { createStore } from 'vuex';
 import axios from 'axios';
+import http from './utils/http';
 
 // src/store.js
 export default createStore({
@@ -38,11 +39,7 @@ export default createStore({
 
             if (credentials.name != '' && credentials.email != '' && credentials.password != '') {
 
-                // const User = { name: credentials.name, email: credentials.email, password: credentials.password };
-                // commit('SET_USER', User);
-
-                const response = await axios.post('http://localhost:3000/api/auth/register', credentials);
-                // commit('SET_USER', response.data);
+                const response = await http.post('http://localhost:3000/api/auth/register', credentials);
 
 
             } else {
@@ -51,7 +48,7 @@ export default createStore({
         },
         async login({ commit }, credentials) {
 
-            const response = await axios.post('http://localhost:3000/api/auth/login', credentials);
+            const response = await http.post('http://localhost:3000/api/auth/login', credentials);
             if (response.data.status) {
                 console.log(response.data);
                 commit('SET_USER', response.data.user);
